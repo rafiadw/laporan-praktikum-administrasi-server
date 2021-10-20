@@ -6,6 +6,7 @@ sudo lxc-copy -R ubuntu_php5.6 -N landing_page
   ```bash
   sudo lxc-ls -f
   ```
+  ![Info Container](/assets/praktikum1/p1.png)
   
 2. Setelah selesai melakukan rename pada container ubuntu_php5.6, selanjutnya kita akan menginstall lxc debian 9 dengan nama debian_php5.6. 
 ```bash
@@ -26,18 +27,18 @@ sudo apt install nginx nginx-extras
 apt install nano net-tools curl
 nano /etc/network/intefaces
 ```
-
+![Configurasi IP](/assets/praktikum1/p2.png)
 ```bash
 systemctl restart networking.service
 ```
-
+![Ifconfig](/assets/praktikum1/p3.png)
   - Konfigurasi nginx
 ```bash
 cd /etc/nginx/sites-available
 touch lxc_php5.6.dev
 nano lxc_php5.6.dev
 ```
-
+![Info Container](/assets/praktikum1/p4.png)
 ```bash
 cd ..
 cd sites-enable
@@ -46,19 +47,21 @@ nginx -t
 nginx -s reload
 nano /etc/hosts
 ```
-
+![Info Container](/assets/praktikum1/p5.png)
 ```bash
 cd /var/www/html
 mkdir lxc_php5.6
 cp index.nginx-debian.html lxc_php5/index.html
 nano index.html
 ```
-
+![Info Container](/assets/praktikum1/p6.png)
 ```bash
 curl -i http://lxc_php5.dev 
+```
+![Info Container](/assets/praktikum1/p7.png)
+```bash
 exit
 ```
-
 4. Karena pada latihan sebelumny kita telah menginstall nginx dan nginx-extras maka selanjutnya kita tinggal melakukan konfigurasi ulang pada nginx dan ip addres.
 ```bash
 sudo lxc-start -n ubuntu_landing
