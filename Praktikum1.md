@@ -1,6 +1,6 @@
 1. Langkah pertama yang kita lakukan adalah mengubah nama container sebelumnya yang telah kita buat pada latihan praktikum.  
 ```bash
-sudo lxc-copy -R ubuntu_php5.6 -N landing_page
+sudo lxc-copy -R ubuntu_php5.6 -N ubuntu_landing
 ```
   - cek container apakah sudah berubah atau belum
   ```bash
@@ -41,7 +41,7 @@ nano lxc_php5.6.dev
 ![Info Container](/assets/praktikum1/p4.png)
 ```bash
 cd ..
-cd sites-enable
+cd sites-enabled
 ln -s /etc/nginx/sites-available/lxc_php5.6.dev .
 nginx -t
 nginx -s reload
@@ -62,7 +62,7 @@ curl -i http://lxc_php5.dev
 ```bash
 exit
 ```
-4. Karena pada latihan sebelumny kita telah menginstall nginx dan nginx-extras maka selanjutnya kita tinggal melakukan konfigurasi ulang pada nginx dan ip addres.
+4. Karena pada latihan sebelumnya kita telah menginstall nginx dan nginx-extras maka selanjutnya kita tinggal melakukan konfigurasi ulang pada nginx dan ip addres.
 ```bash
 sudo lxc-start -n ubuntu_landing
 sudo lxc-attach -n ubuntu_landing
@@ -86,7 +86,7 @@ nano lxc_landing.dev
 ![lxc_landing](/assets/praktikum1/p10.png)
 ```bash
 cd ..
-cd sites-enable
+cd sites-enabled
 ln -s /etc/nginx/sites-available/lxc_landing.dev .
 nginx -t
 nginx -s reload
