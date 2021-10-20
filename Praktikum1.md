@@ -65,24 +65,25 @@ exit
 4. Karena pada latihan sebelumny kita telah menginstall nginx dan nginx-extras maka selanjutnya kita tinggal melakukan konfigurasi ulang pada nginx dan ip addres.
 ```bash
 sudo lxc-start -n ubuntu_landing
+sudo lxc-attach -n ubuntu_landing
 ```
 
   - Konfigurasi static ip : 10.0.3.103
 ```bash
 nano /etc/network/intefaces
 ```
-
+![Iface](/assets/praktikum1/p8.png)
 ```bash
 systemctl restart networking.service
 ```
-
+![Ifconfig](/assets/praktikum1/p9.png)
   - Konfigurasi nginx
 ```bash
 cd /etc/nginx/sites-available
 touch lxc_landing.dev
 nano lxc_landing.dev
 ```
-
+![lxc_landing](/assets/praktikum1/p10.png)
 ```bash
 cd ..
 cd sites-enable
@@ -91,19 +92,19 @@ nginx -t
 nginx -s reload
 nano /etc/hosts
 ```
-
+![host]](/assets/praktikum1/p11.png)
 ```bash
 cd /var/www/html
 mkdir lxc_landing
 cp index.nginx-debian.html lxc_landing/index.html
 nano index.html
 ```
-
+![html](/assets/praktikum1/p12.png)
 ```bash
 curl -i http://lxc_landing.dev 
 exit
 ```
-
+![curl](/assets/praktikum1/p13.png)
 5. lewat
 
 6. Selanjutnya melakukan konfigurasi pada virtual machine hosts
