@@ -55,6 +55,9 @@ exit
 ```
 
 4. Karena pada latihan sebelumny kita telah menginstall nginx dan nginx-extras maka selanjutnya kita tinggal melakukan konfigurasi ulang pada nginx dan ip addres.
+```bash
+sudo lxc-start -n ubuntu_landing
+```
 
 *Konfigurasi static ip : 10.0.3.102
 ```bash
@@ -91,3 +94,29 @@ nano index.html
 ```bash
 curl -i http://lxc_landing.dev 
 exit
+```
+
+5. lewat
+
+6. Selanjutnya melakukan konfigurasi pada virtual machine hosts
+*konfigurasi host
+```bash
+sudo nano /etc/hosts
+```
+*konfigurasi nginx (karena pada latihan sebelumnya kita telah menginstall nginx dan nginx-extras di vm maka kita tingal melakukan konfigurasi saja)
+```bash
+cd /etc/nginx/sites-available
+sudo nano vm.local
+```
+```bash
+cd ...
+cd sites-enabled
+nano vm.local 
+sudo nginx -t
+sudo nginx -s reload
+curl -i http://vm.local
+curl -i http://vm.local/blog
+curl -i http://vm.local/app
+
+```
+
