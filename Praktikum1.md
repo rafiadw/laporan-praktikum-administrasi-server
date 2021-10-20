@@ -1,6 +1,6 @@
 1. Langkah pertama yang kita lakukan adalah mengubah nama container sebelumnya yang telah kita buat pada latihan praktikum.  
 ```bash
-sudo lxc-copy -n ubuntu_php5.6 -R landing_page
+sudo lxc-copy -R ubuntu_php5.6 -N landing_page
 ```
 2. Setelah selesai melakukan rename pada container ubuntu_php5.6, selanjutnya kita akan menginstall lxc debian 9 dengan nama debian_php5.6. 
 ```bash
