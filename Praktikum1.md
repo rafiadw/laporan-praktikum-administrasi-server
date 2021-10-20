@@ -10,13 +10,13 @@ sudo lxc-start -n debian_php5.6
 
 3. Kemudian kita lakukan installasi nginx dan nginx-extras beserta konfigurasinya pada container debian_php5.6.
 
-*Installasi Nginx
+  - Installasi Nginx
 ```bash
 sudo lxc-attach -n debian_php5.6
 sudo apt install nginx nginx-extras
 ```
 
-*Konfigurasi static ip : 10.0.3.102
+  - Konfigurasi static ip : 10.0.3.102
 ```bash
 apt install nano net-tools curl
 nano /etc/network/intefaces
@@ -26,7 +26,7 @@ nano /etc/network/intefaces
 systemctl restart networking.service
 ```
 
-*Konfigurasi nginx
+  - Konfigurasi nginx
 ```bash
 cd /etc/nginx/sites-available
 touch lxc_php5.6.dev
@@ -59,7 +59,7 @@ exit
 sudo lxc-start -n ubuntu_landing
 ```
 
-*Konfigurasi static ip : 10.0.3.102
+  - Konfigurasi static ip : 10.0.3.102
 ```bash
 nano /etc/network/intefaces
 ```
@@ -68,7 +68,7 @@ nano /etc/network/intefaces
 systemctl restart networking.service
 ```
 
-*Konfigurasi nginx
+  - Konfigurasi nginx
 ```bash
 cd /etc/nginx/sites-available
 touch lxc_landing.dev
@@ -99,11 +99,11 @@ exit
 5. lewat
 
 6. Selanjutnya melakukan konfigurasi pada virtual machine hosts
-*konfigurasi host
+  - konfigurasi host
 ```bash
 sudo nano /etc/hosts
 ```
-*konfigurasi nginx (karena pada latihan sebelumnya kita telah menginstall nginx dan nginx-extras di vm maka kita tingal melakukan konfigurasi saja)
+  - konfigurasi nginx (karena pada latihan sebelumnya kita telah menginstall nginx dan nginx-extras di vm maka kita tingal melakukan konfigurasi saja)
 ```bash
 cd /etc/nginx/sites-available
 sudo nano vm.local
