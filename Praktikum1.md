@@ -59,7 +59,7 @@ exit
 sudo lxc-start -n ubuntu_landing
 ```
 
-  - Konfigurasi static ip : 10.0.3.102
+  - Konfigurasi static ip : 10.0.3.103
 ```bash
 nano /etc/network/intefaces
 ```
