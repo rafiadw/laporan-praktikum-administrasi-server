@@ -2,6 +2,11 @@
 ```bash
 sudo lxc-copy -R ubuntu_php5.6 -N landing_page
 ```
+  - cek container apakah sudah berubah atau belum
+  ```bash
+  sudo lxc-ls -f
+  ```
+  
 2. Setelah selesai melakukan rename pada container ubuntu_php5.6, selanjutnya kita akan menginstall lxc debian 9 dengan nama debian_php5.6. 
 ```bash
 sudo lxc-create -n debian_php5.6 -t download -- --dist debian --release stretch --arch amd64 --force-cache --no-validate --server images.linuxcontainers.org
