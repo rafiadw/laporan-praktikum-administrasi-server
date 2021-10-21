@@ -69,7 +69,7 @@ curl -i http://lxc_php5.dev
 ```bash
 exit
 ```
-4. Karena pada latihan sebelumnya kita telah menginstall nginx dan nginx-extras maka selanjutnya kita tinggal melakukan konfigurasi ulang pada nginx dan ip addres.
+4. Karena pada latihan sebelumnya kita telah menginstall nginx dan nginx-extras maka selanjutnya kita tinggal melakukan konfigurasi ulang pada nginx dan ip addres container ubuntu_landing.
 ```bash
 sudo lxc-start -n ubuntu_landing
 sudo lxc-attach -n ubuntu_landing
