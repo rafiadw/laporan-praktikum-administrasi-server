@@ -115,7 +115,7 @@ curl -i http://lxc_landing.dev
 ```bash
 exit
 ```
-1. konfigurasi agar container autostart saat booting vm
+5. konfigurasi agar container autostart saat booting vm
    - Pastikan telah masuk super user
       ```bash
       sudo su
@@ -128,7 +128,7 @@ exit
       ```
    - Lakukan reboot dan cek containers apakah sudah berjalan tanpa melukan perintah lxc-start
      ![autostart](/praktikum%201/assets/p20.png)
-2. Selanjutnya melakukan konfigurasi pada virtual machine hosts
+6.  Selanjutnya melakukan konfigurasi pada virtual machine hosts
   - konfigurasi host
 ```bash
 sudo nano /etc/hosts
