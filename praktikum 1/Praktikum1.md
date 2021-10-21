@@ -13,7 +13,7 @@ sudo lxc-copy -R ubuntu_php5.6 -N ubuntu_landing
   ```bash
   sudo lxc-ls -f
   ```
-  ![Info Container](/assets/p1.png)
+  ![Info Container](/praktikum%201/assets/p1.png)
   
 2. Setelah selesai melakukan rename pada container ubuntu_php5.6, selanjutnya kita akan menginstall lxc debian 9 dengan nama debian_php5.6. 
 ```bash
@@ -34,18 +34,18 @@ sudo apt install nginx nginx-extras
 apt install nano net-tools curl
 nano /etc/network/intefaces
 ```
-![Configurasi IP](/assets/p2.png)
+![Configurasi IP](/praktikum%201/assets/p2.png)
 ```bash
 systemctl restart networking.service
 ```
-![Ifconfig](/assets/p3.png)
+![Ifconfig](/praktikum%201/assets/p3.png)
   - Konfigurasi nginx
 ```bash
 cd /etc/nginx/sites-available
 touch lxc_php5.6.dev
 nano lxc_php5.6.dev
 ```
-![Info Container](/assets/p4.png)
+![Info Container](/praktikum%201/assets/p4.png)
 ```bash
 cd ..
 cd sites-enabled
@@ -54,18 +54,18 @@ nginx -t
 nginx -s reload
 nano /etc/hosts
 ```
-![Info Container](/assetsp5.png)
+![Info Container](/praktikum%201/assets/p5.png)
 ```bash
 cd /var/www/html
 mkdir lxc_php5.6
 cp index.nginx-debian.html lxc_php5/index.html
 nano index.html
 ```
-![Info Container](/assets/p6.png)
+![Info Container](/praktikum%201/assets/p6.png)
 ```bash
 curl -i http://lxc_php5.dev 
 ```
-![Info Container](/assets/p7.png)
+![Info Container](/praktikum%201/assets/p7.png)
 ```bash
 exit
 ```
@@ -79,18 +79,18 @@ sudo lxc-attach -n ubuntu_landing
 ```bash
 nano /etc/network/intefaces
 ```
-![Iface](/assets/p8.png)
+![Iface](/praktikum%201/assets/p8.png)
 ```bash
 systemctl restart networking.service
 ```
-![Ifconfig](/assets/p9.png)
+![Ifconfig](/praktikum%201/assets/p9.png)
   - Konfigurasi nginx
 ```bash
 cd /etc/nginx/sites-available
 touch lxc_landing.dev
 nano lxc_landing.dev
 ```
-![lxc_landing](/assets/p10.png)
+![lxc_landing](/praktikum%201/assets/p10.png)
 ```bash
 cd ..
 cd sites-enabled
@@ -99,18 +99,18 @@ nginx -t
 nginx -s reload
 nano /etc/hosts
 ```
-![host](/assets/p11.png)
+![host](/praktikum%201/assets/p11.png)
 ```bash
 cd /var/www/html
 mkdir lxc_landing
 cp index.nginx-debian.html lxc_landing/index.html
 nano index.html
 ```
-![html](/assets/p12.png)
+![html](/praktikum%201/assets/p12.png)
 ```bash
 curl -i http://lxc_landing.dev 
 ```
-![curl](/assets/p13.png)
+![curl](/praktikum%201/assets/p13.png)
 ```bash
 exit
 ```
@@ -121,14 +121,14 @@ exit
 ```bash
 sudo nano /etc/hosts
 ```
-![hosts](/assets/p14.png)
+![hosts](/praktikum%201/assets/p14.png)
   - konfigurasi nginx (karena pada latihan sebelumnya kita telah menginstall nginx dan nginx-extras di vm maka kita tingal melakukan konfigurasi saja)
 ```bash
 cd /etc/nginx/sites-available
 sudo touch vm.local
 sudo nano vm.local
 ```
-![vm.local](/assets/p19.png)
+![vm.local](/praktikum%201/assets/p19.png))
 ```bash
 cd ..
 cd sites-enabled
@@ -145,11 +145,11 @@ curl -i http://vm.local/app
 ```bash
 sudo nano /etc/hosts
 ```
-![hosts linux](/assets/p15.png)
+![hosts linux](/praktikum%201/assets/p15.png)
   - cek browser
     - http://vm.local/
-      ![/](/assets/p18.png)
+      ![/](/praktikum%201/assets/p18.png)
     - http://vm.local/app
-      ![app](/assets/p16.png)
+      ![app](/praktikum%201/assets/p16.png)
     - htttp://vm.local/blog
-      ![blog](/assets/p17.png)
+      ![blog](/praktikum%201/assets/p17.png)
