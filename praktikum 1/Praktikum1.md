@@ -114,8 +114,17 @@ curl -i http://lxc_landing.dev
 ```bash
 exit
 ```
-5. lewat
-
+5. konfigurasi agar container autostart saat booting vm
+   - Pastikan telah masuk super user
+      ```bash
+      sudo su
+      ```
+   - lalu lakukan penambahan lxc.auto.start = 1 pada masing-masing containers
+      ```bash
+      echo "lxc.start.auto = 1" >> /var/lib/lxc/ubuntu_landing/config
+      echo "lxc.start.auto = 1" >> /var/lib/lxc/debian_php5.6/config
+      echo "lxc.start.auto = 1" >> /var/lib/lxc/ubuntu_php7.4/config
+      ```
 6. Selanjutnya melakukan konfigurasi pada virtual machine hosts
   - konfigurasi host
 ```bash
