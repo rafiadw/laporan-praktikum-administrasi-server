@@ -121,7 +121,7 @@ sudo nano vm.local
 ```
 ![vm.local](/assets/praktikum1/p19.png)
 ```bash
-cd ...
+cd ..
 cd sites-enabled
 ln -s /etc/nginx/sites-available/vm.local .
 sudo nginx -t
