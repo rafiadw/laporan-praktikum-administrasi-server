@@ -170,5 +170,5 @@ sudo nano /etc/hosts
 
 8. 1. Karena pada ubuntu 16.04 tidak lagi didukung support system atau pembaruan perangkat lunak
    seperti keamanan, php5.6 dll yg berakhir pada april 2021 sehingga perlu berganti menggukankan debian 9 yang akan disupport sampai tahun 2022.
-   2.  Karena peggunaan virtualisai lxc lebih efesien sumber daya, mempermudah dalam pengelolaan server, dan dapat menjalankan berbagian sistem operasi tipe lain.
+   2.  Karena peggunaan virtualisai lxc lebih efesien sumber daya, mempermudah dalam pengelolaan server, dan dapat menjalankan berbagia macam sistem operasi tipe lain.
    3. Proxy server adalah sistem perantara akses jaringan, karena vm.local telah dikonfigurasi untuk memotong jaringan virtual machine agar terhubung kedalam virtualisasi os atau container yang telah dibuat sehingga ketika kita dapat mengakses langsung website yang telah dibuat melalui browser komputer lokal.
