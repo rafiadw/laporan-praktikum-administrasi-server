@@ -125,6 +125,8 @@ exit
       echo "lxc.start.auto = 1" >> /var/lib/lxc/debian_php5.6/config
       echo "lxc.start.auto = 1" >> /var/lib/lxc/ubuntu_php7.4/config
       ```
+   - Lakukan reboot dan cek containers apakah sudah berjalan tanpa melukan perintah lxc-start
+     ![autostart](/praktikum%201/assets/p20.png)
 6. Selanjutnya melakukan konfigurasi pada virtual machine hosts
   - konfigurasi host
 ```bash
