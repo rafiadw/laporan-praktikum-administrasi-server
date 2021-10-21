@@ -116,12 +116,14 @@ sudo nano /etc/hosts
   - konfigurasi nginx (karena pada latihan sebelumnya kita telah menginstall nginx dan nginx-extras di vm maka kita tingal melakukan konfigurasi saja)
 ```bash
 cd /etc/nginx/sites-available
+sudo touch vm.local
 sudo nano vm.local
 ```
+![vm.local](/assets/praktikum1/p19.png)
 ```bash
 cd ...
 cd sites-enabled
-nano vm.local 
+ln -s /etc/nginx/sites-available/vm.local .
 sudo nginx -t
 sudo nginx -s reload
 curl -i http://vm.local
