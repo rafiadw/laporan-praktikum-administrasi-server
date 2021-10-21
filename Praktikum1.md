@@ -92,7 +92,7 @@ nginx -t
 nginx -s reload
 nano /etc/hosts
 ```
-![host]](/assets/praktikum1/p11.png)
+![host](/assets/praktikum1/p11.png)
 ```bash
 cd /var/www/html
 mkdir lxc_landing
@@ -112,6 +112,7 @@ exit
 ```bash
 sudo nano /etc/hosts
 ```
+![hosts](/assets/praktikum1/p14.png)
   - konfigurasi nginx (karena pada latihan sebelumnya kita telah menginstall nginx dan nginx-extras di vm maka kita tingal melakukan konfigurasi saja)
 ```bash
 cd /etc/nginx/sites-available
@@ -128,4 +129,16 @@ curl -i http://vm.local/blog
 curl -i http://vm.local/app
 
 ```
-
+7. Konfigurasi Hosts Laptop/Linux Mint
+   - konfigurasi hosts
+```bash
+sudo nano /etc/hosts
+```
+![hosts linux](/assets/praktikum1/p15.png)
+  - cek browser
+    - http://vm.local/
+      ![/](/assets/praktikum1/p18.png)
+    - http://vm.local/app
+      ![app](/assets/praktikum1/p16.png)
+    - htttp://vm.local/blog
+      ![blog](/assets/praktikum1/p17.png)
