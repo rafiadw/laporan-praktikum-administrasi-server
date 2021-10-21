@@ -102,9 +102,11 @@ nano index.html
 ![html](/assets/praktikum1/p12.png)
 ```bash
 curl -i http://lxc_landing.dev 
-exit
 ```
 ![curl](/assets/praktikum1/p13.png)
+```bash
+exit
+```
 5. lewat
 
 6. Selanjutnya melakukan konfigurasi pada virtual machine hosts
