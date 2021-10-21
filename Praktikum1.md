@@ -1,3 +1,10 @@
+## Warning!!!
+
+1. Sebelum melakukan langkah-langkah dibawah ini diharapkan kalian telah melakukan latihan pratikum  pada link berikut : https://github.com/aldonesia/Sistem-Administrasi-Server-2021/blob/master/modul-1/silabus.md
+2. Link Soal Prakttikum Modul 1 : https://github.com/aldonesia/Sistem-Administrasi-Server-2021/blob/master/modul-1/soal_praktikum.md
+
+## Laporan Tutorial Praktikum Modul 1
+
 1. Langkah pertama yang kita lakukan adalah mengubah nama container sebelumnya yang telah kita buat pada latihan praktikum.  
 ```bash
 sudo lxc-copy -R ubuntu_php5.6 -N ubuntu_landing
