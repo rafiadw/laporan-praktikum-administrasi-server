@@ -105,7 +105,7 @@ nano /etc/hosts
 cd /var/www/html
 mkdir lxc_landing
 cp index.nginx-debian.html lxc_landing/index.html
-nano index.html
+nano lxc_landing/index.html
 ```
 ![html](/praktikum%201/assets/p12.png)
 ```bash
