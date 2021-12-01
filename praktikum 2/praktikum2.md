@@ -125,105 +125,106 @@
    - name: install nginx nginx extras
    apt:
    pkg:
+
+    - nginx
+    - nginx-extras
+    state: latest
+
+    - name: start nginx
+        service:
+        name: nginx
+        state: started
+    - name: menginstall tools
+        apt:
+        pkg:
+    - curl
+    - software-properties-common
+    - unzip
+        state: latest
+    - name: "Repo PHP 7.4"
+        apt_repository:
+        repo="ppa:ondrej/php"
+    - name: "Updating the repo"
+        apt: update_cache=yes
+    - name: Installation PHP 7.4
+        apt: name=php7.4 state=present
+    - name: install php untuk laravel
+        apt:
+        pkg: - php7.4-fpm - php7.4-mysql - php7.4-mbstring - php7.4-xml - php7.4-bcmath - php7.4-json - php7.4-zip - php7.4-common
+        state: present
    ```
 
-- nginx
-- nginx-extras
-  state: latest
+- buat file install-composer.yml pada roles task
 
-  - name: start nginx
-    service:
-    name: nginx
-    state: started
-  - name: menginstall tools
-    apt:
-    pkg:
-  - curl
-  - software-properties-common
-  - unzip
-    state: latest
-  - name: "Repo PHP 7.4"
-    apt_repository:
-    repo="ppa:ondrej/php"
-  - name: "Updating the repo"
-    apt: update_cache=yes
-  - name: Installation PHP 7.4
-    apt: name=php7.4 state=present
-  - name: install php untuk laravel
-    apt:
-    pkg: - php7.4-fpm - php7.4-mysql - php7.4-mbstring - php7.4-xml - php7.4-bcmath - php7.4-json - php7.4-zip - php7.4-common
-    state: present
+```bash
+nano roles/php/tasks/main.yml
 
-  - buat file install-composer.yml pada roles task
+```
 
-  nano roles/php/tasks/main.yml
+- isinya seperti berikut
 
-  ````
-
-  - isinya seperti berikut
-
-  ```bash
-  ---
-  - hosts: all
-  become: yes
-  tasks:
-  - name: Download and install Composer
-  shell: curl -sS https://getcomposer.org/installer | php
-  args:
-  chdir: /usr/src/
-  creates: /usr/local/bin/composer
-  warn: false
-  - name: Add Composer to global path
-  copy:
-  dest: /usr/local/bin/composer
-  group: root
-  mode: '0755'
-  owner: root
-  src: /usr/src/composer.phar
-  remote_src: yes
-  - name: Composer create project
-  become_user: root
-  composer:
-  command: create-project
-  arguments: laravel/laravel landing
-  working_dir: /var/www/html
-  prefer_dist: yes
-  environment:
-      COMPOSER_NO_INTERACTION: "1"
-  - name: mengkopi file .env.example jadi .env
-  copy:
-  dest: /var/www/html/landing/.env.example
-  src: /var/www/html/landing/.env
-  remote_src: yes
-  - name: mengganti konfigurasi .env
-  lineinfile:
-  path: /var/www/html/landing/.env
-  regexp: "{{ item.regexp }}"
-  line: "{{ item.line }}"
-  backrefs: yes
-  loop:
-  - { regexp: '^(.*)DB_HOST(.*)$', line: 'DB_HOST=10.0.3.200' }
-  - { regexp: '^(.*)DB_DATABASE(.*)$', line: 'DB_DATABASE=landing' }
-  - { regexp: '^(.*)DB_USERNAME(.*)$', line: 'DB_USERNAME=admin' }
-  - { regexp: '^(.*)DB_PASSWORD(.*)$', line: 'DB_PASSWORD=123zse456' }
-  - { regexp: '^(.*)APP_URL(.*)$', line: 'APP_URL=http://vm.local' }
-  - { regexp: '^(.*)APP_NAME=(.*)$', line: 'APP_NAME=landing' }
-  - name: Composer install ke landing
-  composer:
-      command: install
-      working_dir: /var/www/html/landing
-  environment:
-      COMPOSER_NO_INTERACTION: "1"
-  - name: generate php artisan
-  args:
-  chdir: /var/www/html/landing
-  shell: php artisan key:generate
-  - name: mengganti permission storage
-  file:
-  path: /var/www/html/landing/storage
-  mode: 0777
-  recurse: yes
-  ````
+```bash
+---
+- hosts: all
+become: yes
+tasks:
+- name: Download and install Composer
+shell: curl -sS https://getcomposer.org/installer | php
+args:
+chdir: /usr/src/
+creates: /usr/local/bin/composer
+warn: false
+- name: Add Composer to global path
+copy:
+dest: /usr/local/bin/composer
+group: root
+mode: '0755'
+owner: root
+src: /usr/src/composer.phar
+remote_src: yes
+- name: Composer create project
+become_user: root
+composer:
+command: create-project
+arguments: laravel/laravel landing
+working_dir: /var/www/html
+prefer_dist: yes
+environment:
+    COMPOSER_NO_INTERACTION: "1"
+- name: mengkopi file .env.example jadi .env
+copy:
+dest: /var/www/html/landing/.env.example
+src: /var/www/html/landing/.env
+remote_src: yes
+- name: mengganti konfigurasi .env
+lineinfile:
+path: /var/www/html/landing/.env
+regexp: "{{ item.regexp }}"
+line: "{{ item.line }}"
+backrefs: yes
+loop:
+- { regexp: '^(.*)DB_HOST(.*)$', line: 'DB_HOST=10.0.3.200' }
+- { regexp: '^(.*)DB_DATABASE(.*)$', line: 'DB_DATABASE=landing' }
+- { regexp: '^(.*)DB_USERNAME(.*)$', line: 'DB_USERNAME=admin' }
+- { regexp: '^(.*)DB_PASSWORD(.*)$', line: 'DB_PASSWORD=123zse456' }
+- { regexp: '^(.*)APP_URL(.*)$', line: 'APP_URL=http://vm.local' }
+- { regexp: '^(.*)APP_NAME=(.*)$', line: 'APP_NAME=landing' }
+- name: Composer install ke landing
+composer:
+    command: install
+    working_dir: /var/www/html/landing
+environment:
+    COMPOSER_NO_INTERACTION: "1"
+- name: generate php artisan
+args:
+chdir: /var/www/html/landing
+shell: php artisan key:generate
+- name: mengganti permission storage
+file:
+path: /var/www/html/landing/storage
+mode: 0777
+recurse: yes
+```
 
 - buat file config.yml pada roles handlers
 
