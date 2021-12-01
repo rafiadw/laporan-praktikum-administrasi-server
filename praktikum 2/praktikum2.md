@@ -112,231 +112,208 @@
    cd ~/ansible/
    mkdir laravel
    cd laravel
-   nano install-laravel.yml
+   nano install-nginx.yml
    ```
 
    - isi seperti berikut
 
    ```bash
-   - hosts: ubuntu_landing
-   vars:
-    username: 'admin'
-    password: 'SysAdminSas0102'
-    domain: 'lxc_landing.dev'
-   roles:
-    - php
-    - lv
-   ```
-
-   - buat folder task dan handlers pada roles untuk php
-
-   ```bash
-   mkdir -p roles/php/tasks
-   mkdir -p roles/php/handlers
-   ```
-
-   - buat file main.yml pada roles task
-
-   ```bash
-   nano roles/php/tasks/main.yml
-   ```
-
-   - isinya seperti berikut
-
-   ```bash
    ---
-    - name: delete apt chache
-    become: yes
-    become_user: root
-    become_method: su
-    command: rm -vf /var/lib/apt/lists/*
-
-    - name: install php
-    become: yes
-    become_user: root
-    become_method: su
-    apt: name={{ item }} state=latest update_cache=true
-    with_items:
-        - curl
-        - gtkhash
-        - crack-md5
-        - git
-        - nginx
-        - nginx-extras
-        - php7.4
-        - php7.4-fpm
-        - php7.4-curl
-        - php7.4-xml
-        - php7.4-gd
-        - php7.4-opcache
-        - php7.4-mbstring
-
-    - name: enable module php mbstring
-    command: phpenmod mbstring
-    notify:
-        - restart php
+   - hosts: all
+   become : yes
+   tasks:
    ```
 
-   - buat file main.yml pada roles handlers
+- name: install nginx nginx extras
+  apt:
+  pkg:
+  - nginx
+  - nginx-extras
+    state: latest
+- name: start nginx
+  service:
+  name: nginx
+  state: started
+- name: menginstall tools
+  apt:
+  pkg:
+  - curl
+  - software-properties-common
+  - unzip
+    state: latest
+- name: "Repo PHP 7.4"
+  apt_repository:
+  repo="ppa:ondrej/php"
+- name: "Updating the repo"
+  apt: update_cache=yes
+- name: Installation PHP 7.4
+  apt: name=php7.4 state=present
+- name: install php untuk laravel
+  apt:
+  pkg: - php7.4-fpm - php7.4-mysql - php7.4-mbstring - php7.4-xml - php7.4-bcmath - php7.4-json - php7.4-zip - php7.4-common
+  state: present
 
-   ```bash
+````
+
+- buat file install-composer.yml pada roles task
+
+
+```bash
+ nano roles/php/tasks/main.yml
+````
+
+- isinya seperti berikut
+
+```bash
+---
+- hosts: all
+become: yes
+tasks:
+- name: Download and install Composer
+  shell: curl -sS https://getcomposer.org/installer | php
+  args:
+   chdir: /usr/src/
+   creates: /usr/local/bin/composer
+   warn: false
+- name: Add Composer to global path
+  copy:
+   dest: /usr/local/bin/composer
+   group: root
+   mode: '0755'
+   owner: root
+   src: /usr/src/composer.phar
+   remote_src: yes
+- name: Composer create project
+  become_user: root
+  composer:
+   command: create-project
+   arguments: laravel/laravel landing
+   working_dir: /var/www/html
+   prefer_dist: yes
+  environment:
+     COMPOSER_NO_INTERACTION: "1"
+- name: mengkopi file .env.example jadi .env
+  copy:
+   dest: /var/www/html/landing/.env.example
+   src: /var/www/html/landing/.env
+   remote_src: yes
+- name: mengganti konfigurasi .env
+  lineinfile:
+   path: /var/www/html/landing/.env
+   regexp: "{{ item.regexp }}"
+   line: "{{ item.line }}"
+   backrefs: yes
+  loop:
+   - { regexp: '^(.*)DB_HOST(.*)$', line: 'DB_HOST=10.0.3.200' }
+   - { regexp: '^(.*)DB_DATABASE(.*)$', line: 'DB_DATABASE=landing' }
+   - { regexp: '^(.*)DB_USERNAME(.*)$', line: 'DB_USERNAME=admin' }
+   - { regexp: '^(.*)DB_PASSWORD(.*)$', line: 'DB_PASSWORD=123zse456' }
+   - { regexp: '^(.*)APP_URL(.*)$', line: 'APP_URL=http://vm.local' }
+   - { regexp: '^(.*)APP_NAME=(.*)$', line: 'APP_NAME=landing' }
+- name: Composer install ke landing
+  composer:
+    command: install
+    working_dir: /var/www/html/landing
+  environment:
+    COMPOSER_NO_INTERACTION: "1"
+- name: generate php artisan
+  args:
+   chdir: /var/www/html/landing
+  shell: php artisan key:generate
+- name: mengganti permission storage
+  file:
+   path: /var/www/html/landing/storage
+   mode: 0777
+   recurse: yes
+
+```
+
+- buat file config.yml pada roles handlers
+
+```bash
    nano roles/php/handlers/main.yml
-   ```
+```
 
-   - isinya seperti berikut
+- isinya seperti berikut
 
-   ```bash
-   ---
-    - name: restart php
-    become: yes
-    become_user: root
-    become_method: su
-    action: service name=php7.4-fpm state=restarted
-   ```
+```bash
+---
+- hosts: all
+become : yes
+vars:
+ domain: 'lxc_landing.dev'
+tasks:
+- name: stop apache2
+  service:
+   name: apache2
+   state: stopped
+   enabled: no
+- name: Write {{ domain }} to /etc/hosts
+  lineinfile:
+   dest: /etc/hosts
+   regexp: '.*{{ domain }}$'
+   line: "127.0.0.1 {{ domain }}"
+   state: present
+- name: ensure nginx is at the latest version
+  apt: name=nginx state=latest
+- name: start nginx
+  service:
+   name: nginx
+   state: started
+- name: copy the nginx config file
+  copy:
+   src: ~/ansible/laravel/lxc_landing.dev
+   dest: /etc/nginx/sites-available/lxc_landing.dev
+- name: Symlink lxc_landing.dev
+  command: ln -sfn /etc/nginx/sites-available/lxc_landing.dev /etc/nginx/sites-enabled/lxc_landing.dev
+  args:
+   warn: false
+- name: restart nginx
+  service:
+   name: nginx
+   state: restarted
+- name: restart php7
+  service:
+   name: php7.4-fpm
+   state: restarted
+- name: curl web
+  command: curl -i http://lxc_landing.dev
+  args:
+   warn: false
+```
 
-   - buat folder task dan handlers pada roles untuk laravel
+- buat file lxc_landing.dev pada roles task
 
-   ```bash
-   mkdir -p roles/lv/tasks
-   mkdir -p roles/lv/templates
-   mkdir -p roles/lv/handlers
-   ```
+```bash
+   nano lxc_landing.yml
+```
 
-   - buat file main.yml pada roles task
+- isinya seperti berikut
 
-   ```bash
-   nano roles/lv/tasks/main.yml
-   ```
-
-   - isinya seperti berikut
-
-   ```bash
-   ---
-    - name: delete apt chache
-    become: yes
-    become_user: root
-    become_method: su
-    command: rm -vf /var/lib/apt/lists/*
-
-    - name: install composer
-    shell: curl -sS https://getcomposer.org/installer | php
-    args:
-        chdir: /usr/src/
-        creates: /usr/local/bin/composer
-        warn: false
-    become: yes
-
-    - name: making composer to global path
-    copy:
-        dest: /usr/local/bin/composer
-        group: root
-        mode: '775'
-        owner: root
-        src: /usr/src/composer.phar
-        remote_src: yes
-    become: yes
-
-    - name: creating landing directory
-      file:
-        path: /var/www/html/landing
-        state: absent
-
-    - name: create laravel project
-      shell: /usr/local/bin/composer create-project laravel/laravel /var/www/html/landing --prefer-dist --no-interaction
-
-    - name: copying file .env.template
-      template:
-        src=templates/env.template
-        dest=/var/www/html/landing/.env
-
-    - name: composer
-      shell: cd /var/www/html/landing; /usr/local/bin/composer install --no-interaction
-
-    - name: key
-    shell: /usr/bin/php7.4 /var/www/html/landing/artisan key:generate
-
-    - name: chmod
-    become: yes
-    become_user: root
-    become_method: su
-    command: chmod 777 -R /var/www/html/landing/storage
-
-    - name: copying lv.conf
-    template:
-        src=templates/lv.conf
-        dest=/etc/nginx/sites-available/{{ domain }}
-    vars:
-        servername: '{{ domain }}'
-
-    - name: symlink lv.conf to sited-enabled
-      command: ln -sfn /etc/nginx/sites-available/{{ domain }} /etc/nginx/sites-enabled/{{ domain }}
-      notify:
-    - restart nginx
-
-    - name: writing {{ domain }} to /etc/hosts
-      lineinfile:
-        dest: /etc/hosts
-        regexp: '.*{{ domain }}'
-        line: "127.0.0.1 {{ domain }}"
-        state: present
-   ```
-
-   - buat file env.template pada roles templates
-
-   ```bash
-   nano roles/lv/templates/env.template
-   ```
-
-   - isinya seperti berikut
-
-   ```bash
-   server {
+```bash
+server {
      listen 80;
-     listen [::]:80;
-     access_log /var/log/nginx/vhostlaravel-access.log;
-     error_log /var/log/nginx/vhostlaravel-error.Log;
+
      root /var/www/html/landing/public;
-     index index.php index.html index.html;
+     index index.php index.html index.htm;
      server_name lxc_landing.dev;
 
+     error_log /var/log/nginx/landing_error.log;
+     access_log /var/log/nginx/landing_access.log;
+
+     client_max_body_size 100M;
      location / {
-              try_files $uri $uri/ /index.php?$query_string;
+             try_files $uri $uri/ /index.php$args;
      }
-     location ~ \.php$ {
-            try_files $uri =404;
-            fastcgi_split_path_info ^C.+\.php)(/.+)$;
-            fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-            fastcgi_index index.php;
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            include fastcgi_params;
-      }
-    }
-   ```
+     location ~\.php$ {
+             include snippets/fastcgi-php.conf;
+             fastcgi_pass unix:run/php/php7.4-fpm.sock;
+             fastcgi_param SCRIPTFILENAME $document_root$fastcgi_script_name;
+     }
+}
+```
 
-   - buat file main.yml pada roles handlers
-
-   ```bash
-   nano roles/lv/handlers/main.yml
-   ```
-
-   - isinya seperti berikut
-
-   ```bahs
-   ---
-    - name: restart php
-    become: yes
-    become_user: root
-    become_method: su
-    action: service name=php7.4-fpm state=restarted
-
-    - name: restart nginx
-    become: yes
-    become_user: root
-    become_method: su
-    action: service name=nginx state=restarted
-   ```
-
-4. wordpress
+1. wordpress
 
    - buka ansible/laravel
 
