@@ -1,4 +1,4 @@
-## Warning!!!
+## Warning!!!!!
 
 1. Sebelum melakukan langkah-langkah dibawah ini diharapkan kalian telah melakukan latihan pratikum  pada link berikut : https://github.com/aldonesia/Sistem-Administrasi-Server-2021/blob/master/modul-1/silabus.md
 2. Link Soal Prakttikum Modul 1 : https://github.com/aldonesia/Sistem-Administrasi-Server-2021/blob/master/modul-1/soal_praktikum.md
@@ -105,7 +105,7 @@ nano /etc/hosts
 cd /var/www/html
 mkdir lxc_landing
 cp index.nginx-debian.html lxc_landing/index.html
-nano index.html
+nano lxc_landing/index.html
 ```
 ![html](/praktikum%201/assets/p12.png)
 ```bash
