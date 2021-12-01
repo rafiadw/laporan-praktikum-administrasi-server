@@ -313,7 +313,7 @@ server {
 }
 ```
 
-1. wordpress
+4. wordpress
 
    - buka ansible/laravel
 
