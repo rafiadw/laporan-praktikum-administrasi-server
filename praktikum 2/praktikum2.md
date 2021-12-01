@@ -225,13 +225,11 @@
   recurse: yes
   ````
 
-````
-
 - buat file config.yml pada roles handlers
 
 ```bash
    nano roles/php/handlers/main.yml
-````
+```
 
 - isinya seperti berikut
 
