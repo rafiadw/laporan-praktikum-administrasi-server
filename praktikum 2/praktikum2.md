@@ -157,7 +157,7 @@
 - buat file install-composer.yml pada roles task
 
 ```bash
-nano roles/php/tasks/main.yml
+nano install-composer.yml
 
 ```
 
@@ -229,7 +229,7 @@ recurse: yes
 - buat file config.yml pada roles handlers
 
 ```bash
-   nano roles/php/handlers/main.yml
+   nano config.yml
 ```
 
 - isinya seperti berikut
