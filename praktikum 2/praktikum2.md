@@ -77,7 +77,7 @@
    nano /etc/netplan/10-lxc.yaml
    ```
 
-   ![2](assets/img/2.png))
+   ![2](assets/img/2.png)
 
    ```bash
    netplan apply
