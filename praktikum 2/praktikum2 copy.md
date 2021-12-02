@@ -16,7 +16,7 @@
 
 ## Jawaban
 
-1. Merubah versi ubuntu ubunt_landing dan ubuntu_php7.4 ke focal
+1. Merubah versi ubuntu ubuntu_landing dan ubuntu_php7.4 ke focal
 
    ```bash
    sudo su
@@ -48,7 +48,7 @@
    netplan apply
    ```
 
-   - set ssh serverr ubuntu_landing
+   - set ssh server ubuntu_landing
 
    ```bash
    apt install openssh-server
@@ -69,7 +69,7 @@
    passwd
    ```
 
-   - set ip static ubunutu_php7.4
+   - set ip static ubuntu_php7.4
 
    ```bash
    lxc-attach -n ubuntu_landing
@@ -105,13 +105,13 @@
    ```
 
 3. Installasi php dan laravel pada container ubuntu_landing menggunaan ansible
-
+   vm.local/
    - buka directory ansible dan buat folder laravel
 
    ```bash
    cd ~/ansible/
    mkdir laravel
-   cd laravel
+   cd laravel/
    nano install-laravel.yml
    ```
 
