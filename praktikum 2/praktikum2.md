@@ -77,7 +77,7 @@
    nano /etc/netplan/10-lxc.yaml
    ```
 
-   ![2](assets/img/2.png))
+   ![2](assets/img/2.png)
 
    ```bash
    netplan apply
@@ -353,8 +353,7 @@ nano install-wordpress.yml
 ```
 
   - buat beberapa roles seperti handlers tasks dan templates
-  ```
-
+  
 ```bash
 mkdir -p roles/wp/tasks
 mkdir -p roles/wp/handlers
@@ -633,122 +632,3 @@ ansible-playbook -i hosts install-wordpress.yml -k
 - hasil
   ![hasil](assets/img/4.png)
   ![hasil](assets/img/5.png)
-
-5. Merubah socket ke port 172.0.0.1:9001
-
-   - Laravel
-     -- Buka ansible/laravel
-
-     ```bash
-     cd ~/ansible/laravel
-     ```
-
-     -- buka file lxc_landing_dev dan ubah fastcgi_pass 172.0.0.1:9001
-
-     ```bash
-     nano lxc_landing.dev
-     ```
-
-     ![]()
-     -- buat file portlaravel.yml
-
-     ```bash
-     nano portlaravel.yml
-     ```
-
-     -- isi seperti berikut
-
-     ```bash
-     ---
-      - hosts: all
-        become : yes
-        tasks:
-         - name: mengganti php sock
-           lineinfile:
-            path: /etc/php/7.4/fpm/pool.d/www.conf
-            regexp: '^(.*)listen =(.*)$'
-            line: 'listen = 127.0.0.1:9001'
-            backrefs: yes
-         - name: copy the nginx config file
-           copy:
-            src: ~/ansible/laravel/lxc_landing.dev
-            dest: /etc/nginx/sites-available/lxc_landing.dev
-         - name: Symlink lxc_landing.dev
-           command: ln -sfn /etc/nginx/sites-available/lxc_landing.dev /etc/nginx/sites-enabled/lxc_landing.dev
-           args:
-            warn: false
-         - name: restart nginx
-           service:
-            name: nginx
-            state: restarted
-         - name: restart php7
-           service:
-            name: php7.4-fpm
-            state: restarted
-         - name: curl web
-           command: curl -i http://lxc_landing.dev
-           args:
-            warn: false
-     ```
-
-     -- ansible portlaravel.yml
-
-     ```bash
-     ansible-playbook -i hosts portlaravel.yml -k
-     ```
-
-   - wordpress
-     -- ubah fastcgi_passnya menjadi 172.0.0.1 pada file wordpress.conf
-
-     ```bash
-     nano roles/wp/templates/wordpress.conf
-     ```
-
-     buat file portwordpress.yml
-
-     ```bash
-     nano roles/wp/templates/portwordpress.yml
-     ```
-
-     -- berisi seperti berikut
-
-     ```bash
-     ---
-      - hosts: all
-        become : yes
-        tasks:
-         - name: mengganti php sock
-           lineinfile:
-            path: /etc/php/7.4/fpm/pool.d/www.conf
-            regexp: '^(.*)listen =(.*)$'
-            line: 'listen = 127.0.0.1:9001'
-            backrefs: yes
-         - name: copy the nginx config file
-           copy:
-            src: ~/ansible/wordpress/wordpress.conf
-            dest: /etc/nginx/sites-available/lxc_php7.dev
-         - name: Symlink lxc_php7.dev
-           command: ln -sfn /etc/nginx/sites-available/lxc_php7.dev /etc/nginx/sites-enabled/lxc_php7.dev
-           args:
-            warn: false
-         - name: restart nginx
-           service:
-            name: nginx
-            state: restarted
-         - name: restart php7
-           service:
-            name: php7.4-fpm
-            state: restarted
-         - name: curl web
-           command: curl -i http://lxc_php7.dev
-           args:
-            warn: false
-     ```
-
-     -- ansible portwordpress.yml
-
-     ```bash
-     cd roles/wp/templates
-
-     ansible-playbook -i hosts portwordpress.yml -k
-     ```
