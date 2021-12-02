@@ -105,8 +105,7 @@
    ```
 
 3. Installasi php dan laravel pada container ubuntu_landing menggunaan ansible
-   ```bash
-   vm.local/
+   #### vm.local/
    - buka directory ansible dan buat folder laravel
 
    ```bash
