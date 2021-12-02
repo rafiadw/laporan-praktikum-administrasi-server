@@ -650,7 +650,7 @@ ansible-playbook -i hosts install-wordpress.yml -k
      nano lxc_landing.dev
      ```
 
-     ![]()
+     ![port](assets/img/7.png)
      -- buat file portlaravel.yml
 
      ```bash
@@ -705,6 +705,7 @@ ansible-playbook -i hosts install-wordpress.yml -k
      nano roles/wp/templates/wordpress.conf
      ```
 
+     ![port](assets/img/8.png)
      buat file portwordpress.yml
 
      ```bash
