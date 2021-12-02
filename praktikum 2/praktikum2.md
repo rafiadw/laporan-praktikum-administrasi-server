@@ -120,37 +120,44 @@
    ```bash
    ---
    - hosts: all
-   become: yes
-   tasks:
+     become : yes
+     tasks:
    - name: install nginx nginx extras
-   apt:
-   pkg:
+     apt:
+     pkg:
 
     - nginx
     - nginx-extras
-    state: latest
+      state: latest
 
     - name: start nginx
-        service:
-        name: nginx
-        state: started
+      service:
+       name: nginx
+       state: started
     - name: menginstall tools
-        apt:
-        pkg:
-    - curl
-    - software-properties-common
-    - unzip
-        state: latest
+      apt:
+       pkg:
+         - curl
+         - software-properties-common
+         - unzip
+       state: latest
     - name: "Repo PHP 7.4"
-        apt_repository:
+      apt_repository:
         repo="ppa:ondrej/php"
     - name: "Updating the repo"
-        apt: update_cache=yes
+       apt: update_cache=yes
     - name: Installation PHP 7.4
-        apt: name=php7.4 state=present
+       apt: name=php7.4 state=present
     - name: install php untuk laravel
         apt:
-        pkg: - php7.4-fpm - php7.4-mysql - php7.4-mbstring - php7.4-xml - php7.4-bcmath - php7.4-json - php7.4-zip - php7.4-common
+        pkg: - php7.4-fpm 
+             - php7.4-mysql 
+             - php7.4-mbstring 
+             - php7.4-xml 
+             - php7.4-bcmath 
+             - php7.4-json 
+             - php7.4-zip 
+             - php7.4-common
         state: present
    ```
 
@@ -166,70 +173,70 @@ nano install-composer.yml
 ```bash
 ---
 - hosts: all
-become: yes
-tasks:
+  become: yes
+  tasks:
 - name: Download and install Composer
-shell: curl -sS https://getcomposer.org/installer | php
-args:
-chdir: /usr/src/
-creates: /usr/local/bin/composer
-warn: false
+  shell: curl -sS https://getcomposer.org/installer | php
+  args:
+  chdir: /usr/src/
+  creates: /usr/local/bin/composer
+  warn: false
 - name: Add Composer to global path
-copy:
-dest: /usr/local/bin/composer
-group: root
-mode: '0755'
-owner: root
-src: /usr/src/composer.phar
-remote_src: yes
+  copy:
+  dest: /usr/local/bin/composer
+  group: root
+  mode: '0755'
+  owner: root
+  src: /usr/src/composer.phar
+  remote_src: yes
 - name: Composer create project
-become_user: root
-composer:
-command: create-project
-arguments: laravel/laravel landing
-working_dir: /var/www/html
-prefer_dist: yes
-environment:
+  become_user: root
+  composer:
+  command: create-project
+  arguments: laravel/laravel landing
+  working_dir: /var/www/html
+  prefer_dist: yes
+  environment:
     COMPOSER_NO_INTERACTION: "1"
 - name: mengkopi file .env.example jadi .env
-copy:
-dest: /var/www/html/landing/.env.example
-src: /var/www/html/landing/.env
-remote_src: yes
+  copy:
+  dest: /var/www/html/landing/.env.example
+  src: /var/www/html/landing/.env
+  remote_src: yes
 - name: mengganti konfigurasi .env
-lineinfile:
-path: /var/www/html/landing/.env
-regexp: "{{ item.regexp }}"
-line: "{{ item.line }}"
-backrefs: yes
-loop:
-- { regexp: '^(.*)DB_HOST(.*)$', line: 'DB_HOST=10.0.3.200' }
-- { regexp: '^(.*)DB_DATABASE(.*)$', line: 'DB_DATABASE=landing' }
-- { regexp: '^(.*)DB_USERNAME(.*)$', line: 'DB_USERNAME=admin' }
-- { regexp: '^(.*)DB_PASSWORD(.*)$', line: 'DB_PASSWORD=SysAdmin0102' }
-- { regexp: '^(.*)APP_URL(.*)$', line: 'APP_URL=http://vm.local' }
-- { regexp: '^(.*)APP_NAME=(.*)$', line: 'APP_NAME=landing' }
-- name: Composer install ke landing
-composer:
+  lineinfile:
+  path: /var/www/html/landing/.env
+  regexp: "{{ item.regexp }}"
+  line: "{{ item.line }}"
+  backrefs: yes
+  loop:
+   - { regexp: '^(.*)DB_HOST(.*)$', line: 'DB_HOST=10.0.3.200' }
+   - { regexp: '^(.*)DB_DATABASE(.*)$', line: 'DB_DATABASE=landing' }
+   - { regexp: '^(.*)DB_USERNAME(.*)$', line: 'DB_USERNAME=admin' }
+   - { regexp: '^(.*)DB_PASSWORD(.*)$', line: 'DB_PASSWORD=SysAdmin0102' }
+   - { regexp: '^(.*)APP_URL(.*)$', line: 'APP_URL=http://vm.local' }
+   - { regexp: '^(.*)APP_NAME=(.*)$', line: 'APP_NAME=landing' }
+   - name: Composer install ke landing
+  composer:
     command: install
     working_dir: /var/www/html/landing
-environment:
+  environment:
     COMPOSER_NO_INTERACTION: "1"
 - name: generate php artisan
-args:
-chdir: /var/www/html/landing
-shell: php artisan key:generate
+  args:
+  chdir: /var/www/html/landing
+  shell: php artisan key:generate
 - name: mengganti permission storage
-file:
-path: /var/www/html/landing/storage
-mode: 0777
-recurse: yes
+  file:
+  path: /var/www/html/landing/storage
+  mode: 0777
+  recurse: yes
 ```
 
 - buat file config.yml pada roles handlers
 
 ```bash
-   nano config.yml
+nano config.yml
 ```
 
 - isinya seperti berikut
@@ -237,53 +244,53 @@ recurse: yes
 ```bash
 ---
 - hosts: all
-become : yes
-vars:
- domain: 'lxc_landing.dev'
-tasks:
+  become : yes
+  vars:
+  domain: 'lxc_landing.dev'
+  tasks:
 - name: stop apache2
   service:
-   name: apache2
-   state: stopped
-   enabled: no
+    name: apache2
+    state: stopped
+    enabled: no
 - name: Write {{ domain }} to /etc/hosts
   lineinfile:
-   dest: /etc/hosts
-   regexp: '.*{{ domain }}$'
-   line: "127.0.0.1 {{ domain }}"
-   state: present
+    dest: /etc/hosts
+    regexp: '.*{{ domain }}$'
+    line: "127.0.0.1 {{ domain }}"
+    state: present
 - name: ensure nginx is at the latest version
   apt: name=nginx state=latest
 - name: start nginx
   service:
-   name: nginx
-   state: started
+    name: nginx
+    state: started
 - name: copy the nginx config file
   copy:
-   src: ~/ansible/laravel/lxc_landing.dev
-   dest: /etc/nginx/sites-available/lxc_landing.dev
+    src: ~/ansible/laravel/lxc_landing.dev
+    dest: /etc/nginx/sites-available/lxc_landing.dev
 - name: Symlink lxc_landing.dev
   command: ln -sfn /etc/nginx/sites-available/lxc_landing.dev /etc/nginx/sites-enabled/lxc_landing.dev
   args:
-   warn: false
+    warn: false
 - name: restart nginx
   service:
-   name: nginx
-   state: restarted
+    name: nginx
+    state: restarted
 - name: restart php7
   service:
-   name: php7.4-fpm
-   state: restarted
+    name: php7.4-fpm
+    state: restarted
 - name: curl web
   command: curl -i http://lxc_landing.dev
   args:
-   warn: false
+    warn: false
 ```
 
 - buat file lxc_landing.dev pada roles task
 
 ```bash
-   nano lxc_landing.yml
+nano lxc_landing.yml
 ```
 
 - isinya seperti berikut
@@ -326,35 +333,33 @@ ansible-playbook -i hosts config.yml -k
 
    - buka ansible/laravel
 
-   ```bash
-   cd ~/ansible/
-
-   cd laravel
-   nano install-wordpress.yml
-   ```
+```bash
+cd ~/ansible/
+cd laravel
+nano install-wordpress.yml
+```
 
    - berisi
 
-   ```bash
-   ---
-    - hosts: ubuntu_php7
-    vars:
-        username: 'admin'
-         password: 'SysAdminSas0102' #DON'T FORGET TO CHANGE
-        domain: 'lxc_php7.dev'
-    roles:
+```bash
+---
+- hosts: ubuntu_php7
+  vars:
+  username: 'admin'
+  password: 'SysAdminSas0102' #DON'T FORGET TO CHANGE
+  domain: 'lxc_php7.dev'
+  roles:
     - wp
-   ```
+```
 
-````
-
-- buat beberapa roles seperti handlers tasks dan templates
+  - buat beberapa roles seperti handlers tasks dan templates
+  ```
 
 ```bash
 mkdir -p roles/wp/tasks
 mkdir -p roles/wp/handlers
 mkdir -p roles/wp/templates
-````
+```
 
 - buat file main di roles wp task
 
@@ -367,78 +372,78 @@ nano roles/wp/tasks
 ```bash
 ---
 - name: delete apt chache
-become: yes
-become_user: root
-become_method: su
-command: rm -vf /var/lib/apt/lists/*
+  become: yes
+  become_user: root
+  become_method: su
+  command: rm -vf /var/lib/apt/lists/*
 
 - name: install requirement
-become: yes
-become_user: root
-become_method: su
-apt: name={{ item }} state=latest update_cache=true
-with_items:
- - nginx
- - nginx-extras
- - curl
- - wget
- - php7.4
- - php7.4-fpm
- - php7.4-curl
- - php7.4-xml
- - php7.4-gd
- - php7.4-opcache
- - php7.4-mbstring
- - php7.4-zip
- - php7.4-json
- - php7.4-cli
- - php7.4-mysqlnd
- - php7.4-xmlrpc
- - php7.4-curl
+  become: yes
+  become_user: root
+  become_method: su
+  apt: name={{ item }} state=latest update_cache=true
+  with_items:
+    - nginx
+    - nginx-extras
+    - curl
+    - wget
+    - php7.4
+    - php7.4-fpm
+    - php7.4-curl
+    - php7.4-xml
+    - php7.4-gd
+    - php7.4-opcache
+    - php7.4-mbstring
+    - php7.4-zip
+    - php7.4-json
+    - php7.4-cli
+    - php7.4-mysqlnd
+    - php7.4-xmlrpc
+    - php7.4-curl
 
 - name: wget wordpress
-shell: wget -c http://wordpress.org/latest.tar.gz
+  shell: wget -c http://wordpress.org/latest.tar.gz
 
 - name: tar latest.tar.gz
-shell: tar -xvzf latest.tar.gz
+  shell: tar -xvzf latest.tar.gz
 
 - name: copy folder wordpress
-shell: cp -R wordpress /var/www/html/blog
+  shell: cp -R wordpress /var/www/html/blog
 
 - name: chmod
-become: yes
-become_user: root
-become_method: su
-command: chmod 775 -R /var/www/html/blog/
+  become: yes
+  become_user: root
+  become_method: su
+  command: chmod 775 -R /var/www/html/blog/
 
 - name: copy .wp-config.conf
-template:
- src=templates/wp.conf
- dest=/var/www/html/blog/wp-config.php
+  template:
+    src=templates/wp.conf
+    dest=/var/www/html/blog/wp-config.php
 
 - name: copy wordpress.conf
-template:
- src=templates/wordpress.conf
- dest=/etc/nginx/sites-available/{{ domain }}
-vars:
- servername: '{{ domain }}'
+  template:
+    src=templates/wordpress.conf
+    dest=/etc/nginx/sites-available/{{ domain }}
+  vars:
+    servername: '{{ domain }}'
 
 - name: Symlink wordpress.conf
-command: ln -sfn /etc/nginx/sites-available/{{ domain }} /etc/nginx/sites-enabled/{{ domain }}
-notify:
- - restart nginx
+  command: ln -sfn /etc/nginx/sites-available/{{ domain }} /etc/nginx/sites-enabled/{{ domain }}
+  notify:
+    - restart nginx
 
 - name: Write {{ domain }} to /etc/hosts
-lineinfile:
- dest: /etc/hosts
- regexp: '.*{{ domain }}$'
- line: "127.0.0.1 {{ domain }}"
- state: present
+  lineinfile:
+  dest: /etc/hosts
+  regexp: '.*{{ domain }}$'
+  line: "127.0.0.1 {{ domain }}"
+  state: present
 
 - name: enable module php mbstring
-command: phpenmod mbstring
-notify:
- - restart php
+  command: phpenmod mbstring
+  notify:
+    - restart php
 
 ```
 
@@ -453,16 +458,16 @@ nano roles/wp/handlers/main.yml
 ```bash
 ---
 - name: restart php
-become: yes
-become_user: root
-become_method: su
-action: service name=php7.4-fpm state=restarted
+  become: yes
+  become_user: root
+  become_method: su
+  action: service name=php7.4-fpm state=restarted
 
 - name: restart nginx
-become: yes
-become_user: root
-become_method: su
-action: service name=nginx state=restarted
+  become: yes
+  become_user: root
+  become_method: su
+  action: service name=nginx state=restarted
 ```
 
 - buat file wp.conf di wp template
