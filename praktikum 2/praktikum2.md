@@ -206,7 +206,7 @@ loop:
 - { regexp: '^(.*)DB_HOST(.*)$', line: 'DB_HOST=10.0.3.200' }
 - { regexp: '^(.*)DB_DATABASE(.*)$', line: 'DB_DATABASE=landing' }
 - { regexp: '^(.*)DB_USERNAME(.*)$', line: 'DB_USERNAME=admin' }
-- { regexp: '^(.*)DB_PASSWORD(.*)$', line: 'DB_PASSWORD=123zse456' }
+- { regexp: '^(.*)DB_PASSWORD(.*)$', line: 'DB_PASSWORD=SysAdmin0102' }
 - { regexp: '^(.*)APP_URL(.*)$', line: 'APP_URL=http://vm.local' }
 - { regexp: '^(.*)APP_NAME=(.*)$', line: 'APP_NAME=landing' }
 - name: Composer install ke landing
@@ -311,7 +311,18 @@ server {
 }
 ```
 
-1. wordpress
+- lakukan ansible satu persatu
+
+```bash
+ansible-playbook -i hosts install-nginxphp.yml -k
+ansible-playbook -i hosts install-composer.yml -k
+ansible-playbook -i hosts config.yml -k
+```
+
+- buka vm.local/ di browser
+  ![laravel](assets/img/6.png)
+
+4. wordpress
 
    - buka ansible/laravel
 
