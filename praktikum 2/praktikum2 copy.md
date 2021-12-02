@@ -77,13 +77,13 @@
    nano /etc/netplan/10-lxc.yaml
    ```
 
-   ![2](assets/img/2.png))
+   ![2](assets/img/2.png)
 
    ```bash
    netplan apply
    ```
 
-   - set ssh serverr ubuntu_php7.4
+   - set ssh server ubuntu_php7.4
 
    ```bash
    apt install openssh-server
@@ -105,6 +105,7 @@
    ```
 
 3. Installasi php dan laravel pada container ubuntu_landing menggunaan ansible
+   ```bash
    vm.local/
    - buka directory ansible dan buat folder laravel
 
