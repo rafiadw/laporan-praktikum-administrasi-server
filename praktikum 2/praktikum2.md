@@ -120,7 +120,7 @@
    ```bash
    ---
    - hosts: all
-   become : yes
+   become: yes
    tasks:
    - name: install nginx nginx extras
    apt:
@@ -337,27 +337,24 @@ ansible-playbook -i hosts config.yml -k
 
    ```bash
    ---
+    - hosts: ubuntu_php7
+    vars:
+        username: 'admin'
+         password: 'SysAdminSas0102' #DON'T FORGET TO CHANGE
+        domain: 'lxc_php7.dev'
+    roles:
+    - wp
    ```
 
-- hosts: ubuntu_php7
-  vars:
-  username: 'admin'
-  password: 'SysAdminSas0102' #DON'T FORGET TO CHANGE
-  domain: 'lxc_php7.dev'
-  roles:
+````
 
-  - wp
-
-  ```
-
-  - buat beberapa roles seperti handlers tasks dan templates
-  ```
+- buat beberapa roles seperti handlers tasks dan templates
 
 ```bash
 mkdir -p roles/wp/tasks
 mkdir -p roles/wp/handlers
 mkdir -p roles/wp/templates
-```
+````
 
 - buat file main di roles wp task
 
