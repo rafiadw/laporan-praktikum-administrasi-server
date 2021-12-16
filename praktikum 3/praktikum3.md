@@ -19,8 +19,13 @@ https://github.com/aldonesia/Sistem-Administrasi-Server-2021/blob/master/modul-3
 nano /etc/hosts
 ```
 
-![]() 2. tambahkan konfigurasi www.vm.local pada host virtual vm.local
-![]() 3. restart nginx
+![]()
+
+2. tambahkan konfigurasi www.vm.local pada host virtual vm.local
+
+![](/assets/1.png)
+
+3. restart nginx
 
 ```bash
 sudo service nginx restart
@@ -30,7 +35,7 @@ sudo service nginx restart
    ```bash
    ip addr show enp0s3
    ```
-   ![]()
+   ![](/assets/3.png)
    ip virtualbox adalah 192.168.43.10
 5. instalasi bind9
    ```bash
