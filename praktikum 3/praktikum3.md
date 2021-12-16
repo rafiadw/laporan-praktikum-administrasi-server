@@ -19,7 +19,7 @@ https://github.com/aldonesia/Sistem-Administrasi-Server-2021/blob/master/modul-3
 nano /etc/hosts
 ```
 
-![]()
+![](/assets/12.png)
 
 2. tambahkan konfigurasi www.vm.local pada host virtual vm.local
 
