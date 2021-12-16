@@ -32,11 +32,14 @@ sudo service nginx restart
 ```
 
 4. cek dan catat ip address pada virtualbox
+
    ```bash
    ip addr show enp0s3
    ```
+
    ![](/assets/3.png)
    ip virtualbox adalah 192.168.43.10
+
 5. instalasi bind9
    ```bash
    nano ~/ansible/prak2/roles/php/tasks/main.yml
@@ -49,13 +52,13 @@ sudo service nginx restart
    cd ..
    nano lv/tasks/main.yml
    ```
-   ![]()
+   ![](/assets/4.png)
 7. lalu buat file 'conf.local, vm.local, 43.168.192, resolv.conf, and named.conf.options' di lv/templates
    ```bash
    cd ..
    nano cd roles/lv/templates/43.168.192.in-addr.arpa
    ```
-   ![]()
+   ![](/assets/6.png)
    ```bash
    nano cd roles/lv/templates/named.conf.local
    ```
