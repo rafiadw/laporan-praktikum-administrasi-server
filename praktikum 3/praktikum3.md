@@ -37,7 +37,7 @@ sudo service nginx restart
    ip addr show enp0s3
    ```
 
-   ![](/assets/3.png)
+   ![3](assets/3.png)
    ip virtualbox adalah 192.168.43.10
 
 5. instalasi bind9
@@ -45,36 +45,36 @@ sudo service nginx restart
    nano ~/ansible/prak2/roles/php/tasks/main.yml
    ```
    tambahkan bind9 dan dnsutils
-   ![](/assets/4.png)
+   ![4](assets/4.png)
 6. tambahkan konfigurasi 'Copy conf.local, Copy vm.local, Copy 43.168.192, Copy resolv.conf, and Copy named.conf.options'
    ```bash
    cd ..
    cd ..
    nano lv/tasks/main.yml
    ```
-   ![](/assets/5.png)
+   ![5](assets/5.png)
 7. lalu buat file 'conf.local, vm.local, 43.168.192, resolv.conf, and named.conf.options' di lv/templates
    ```bash
    cd ..
    nano cd roles/lv/templates/43.168.192.in-addr.arpa
    ```
-   ![](/assets/6.png)
+   ![6](assets/6.png)
    ```bash
    nano cd roles/lv/templates/named.conf.local
    ```
-   ![](/assets/7.png)
+   ![7](assets/7.png)
    ```bash
    nano cd roles/lv/templates/named.conf.options
    ```
-   ![](/assets/9.png)
+   ![8](assets/9.png)
    ```bash
    nano cd roles/lv/templates/resolv.conf
    ```
-   ![](/assets/11.png)
+   ![9](assets/11.png)
    ```bash
    nano cd roles/lv/templates/vm.local
    ```
-   ![](/assets/8.png)
+   ![10](assets/8.png)
 8. tambahkan konfigurasi unutk merestart bind9 di cd roles/lv/handlers
    ```bash
    cd ..
@@ -85,7 +85,7 @@ sudo service nginx restart
    ```bash
    ansible-playbook -i hosts install-laravel.yml -k
    ```
-   ![](/assets/10.png)
+   ![](assets/10.png)
 10. tambahkan sub domain dev.vm.local di /etc/hosts
     ```bash
     nano /etc/hosts
@@ -102,5 +102,5 @@ sudo service nginx restart
     host -t CNAME dev.vm.local
     ```
 12. Buka browser di komputer lokal ketikan www.vm.loval
-    ![](/assets/lv.png)
-    ![](/assets/wp.png)
+    ![](assets/lv.png)
+    ![](assets/wp.png)
