@@ -102,5 +102,5 @@ sudo service nginx restart
     host -t CNAME dev.vm.local
     ```
 12. Buka browser di komputer lokal ketikan www.vm.loval
-    ![]()
-    ![]()
+    ![](/assets/lv.png)
+    ![](/assets/wp.png)
