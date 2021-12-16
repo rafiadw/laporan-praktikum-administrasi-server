@@ -45,14 +45,14 @@ sudo service nginx restart
    nano ~/ansible/prak2/roles/php/tasks/main.yml
    ```
    tambahkan bind9 dan dnsutils
-   ![]()
+   ![](/assets/4.png)
 6. tambahkan konfigurasi 'Copy conf.local, Copy vm.local, Copy 43.168.192, Copy resolv.conf, and Copy named.conf.options'
    ```bash
    cd ..
    cd ..
    nano lv/tasks/main.yml
    ```
-   ![](/assets/4.png)
+   ![](/assets/5.png)
 7. lalu buat file 'conf.local, vm.local, 43.168.192, resolv.conf, and named.conf.options' di lv/templates
    ```bash
    cd ..
