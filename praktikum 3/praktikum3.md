@@ -85,7 +85,7 @@ sudo service nginx restart
    ```bash
    ansible-playbook -i hosts install-laravel.yml -k
    ```
-   ![]()
+   ![](/assets/10.png)
 10. tambahkan sub domain dev.vm.local di /etc/hosts
     ```bash
     nano /etc/hosts
