@@ -62,19 +62,19 @@ sudo service nginx restart
    ```bash
    nano cd roles/lv/templates/named.conf.local
    ```
-   ![]()
+   ![](/assets/7.png)
    ```bash
    nano cd roles/lv/templates/named.conf.options
    ```
-   ![]()
+   ![](/assets/9.png)
    ```bash
    nano cd roles/lv/templates/resolv.conf
    ```
-   ![]()
+   ![](/assets/11.png)
    ```bash
    nano cd roles/lv/templates/vm.local
    ```
-   ![]()
+   ![](/assets/8.png)
 8. tambahkan konfigurasi unutk merestart bind9 di cd roles/lv/handlers
    ```bash
    cd ..
