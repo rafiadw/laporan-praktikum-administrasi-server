@@ -46,6 +46,7 @@ sudo service nginx restart
    ```
    tambahkan bind9 dan dnsutils
    ![4](assets/4.png)
+
 6. tambahkan konfigurasi 'Copy conf.local, Copy vm.local, Copy 43.168.192, Copy resolv.conf, and Copy named.conf.options'
    ```bash
    cd ..
@@ -53,6 +54,7 @@ sudo service nginx restart
    nano lv/tasks/main.yml
    ```
    ![5](assets/5.png)
+
 7. lalu buat file 'conf.local, vm.local, 43.168.192, resolv.conf, and named.conf.options' di lv/templates
    ```bash
    cd ..
@@ -75,22 +77,26 @@ sudo service nginx restart
    nano cd roles/lv/templates/vm.local
    ```
    ![10](assets/8.png)
+
 8. tambahkan konfigurasi unutk merestart bind9 di cd roles/lv/handlers
    ```bash
    cd ..
    nano handlers/main.yml
    ```
    ![]()
+
 9. jalankan ansible pada ~/ansble/prak2
    ```bash
    ansible-playbook -i hosts install-laravel.yml -k
    ```
    ![](assets/10.png)
+
 10. tambahkan sub domain dev.vm.local di /etc/hosts
     ```bash
     nano /etc/hosts
     ```
     ![]()
+
 11. tambahkan konfigurasi "dev IN CNAME vm.local"
     ```bash
     lxc-attach -n ubuntu_landing
@@ -101,6 +107,7 @@ sudo service nginx restart
     sudo /etc/init.d/named restart
     host -t CNAME dev.vm.local
     ```
+
 12. Buka browser di komputer lokal ketikan www.vm.loval
     ![](assets/lv.png)
     ![](assets/wp.png)
