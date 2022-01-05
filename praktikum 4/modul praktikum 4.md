@@ -194,10 +194,10 @@ Menggunakan loadbalancer dapat mengoptimalkan pemanfaatan sumber daya, memaksima
 ![22](https://user-images.githubusercontent.com/93067781/148241167-c431ca2a-9418-45d3-9420-848bf363286f.png)
 
 23. Penjelasan Summary Report
-    Throughput : Menunjukkan jumlah request yang berhasil diproses per time unit (second, minute, hours) oleh server.
-    Received KB/sec : Mengindikasikan jumlah data yang berhasil diunduh oleh server selama dilakukannya eksekusi pengujian performance dalam satuan kilobyte tiap 1 sekon.
-    Sent KB/sec : Mengindikasikan jumlah data yang berhasil dikirim dari server selama dilakukannya eksekusi pengujian performance dalam satuan kilobyte tiap 1 sekon.
-    Avg Bytes : Merupakan rata-rata byte yang berhasil diunduh (download) oleh server.
+    - Throughput : Menunjukkan jumlah request yang berhasil diproses per time unit (second, minute, hours) oleh server.
+    - Received KB/sec : Mengindikasikan jumlah data yang berhasil diunduh oleh server selama dilakukannya eksekusi pengujian performance dalam satuan kilobyte tiap 1 sekon.
+    - Sent KB/sec : Mengindikasikan jumlah data yang berhasil dikirim dari server selama dilakukannya eksekusi pengujian performance dalam satuan kilobyte tiap 1 sekon.
+      Avg Bytes : Merupakan rata-rata byte yang berhasil diunduh (download) oleh server.
 24. Analisis
     - 50 user
       -- tanpa load balacer
