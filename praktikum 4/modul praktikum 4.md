@@ -193,7 +193,12 @@ Menggunakan loadbalancer dapat mengoptimalkan pemanfaatan sumber daya, memaksima
 
 ![22](https://user-images.githubusercontent.com/93067781/148241167-c431ca2a-9418-45d3-9420-848bf363286f.png)
 
-23. Analisis
+23. Penjelasan Summary Report
+    Throughput : Menunjukkan jumlah request yang berhasil diproses per time unit (second, minute, hours) oleh server.
+    Received KB/sec : Mengindikasikan jumlah data yang berhasil diunduh oleh server selama dilakukannya eksekusi pengujian performance dalam satuan kilobyte tiap 1 sekon.
+    Sent KB/sec : Mengindikasikan jumlah data yang berhasil dikirim dari server selama dilakukannya eksekusi pengujian performance dalam satuan kilobyte tiap 1 sekon.
+    Avg Bytes : Merupakan rata-rata byte yang berhasil diunduh (download) oleh server.
+24. Analisis
     - 50 user
       -- tanpa load balacer
       dalam waktu 0.2 (ramp-up) membutuhkan waktu rata eksekusi 1333 ms (landing), 5549 ms (blog), 580 ms (app) dengan waktu minimum yang dibutuhkan untuk mengeksekusi thread 839 ms(landing), 34586 ms (blog), 3 ms (app) dan maksimumnya 1773 ms (landing), 60185 ms (blog), 5506 ms (app) dari througput server dapat mengeksekusi 28,2 thread/s (landing), 49.2 thread/min (blog), 1,9 thread/s
