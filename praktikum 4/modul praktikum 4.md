@@ -199,12 +199,6 @@ Menggunakan loadbalancer dapat mengoptimalkan pemanfaatan sumber daya, memaksima
     - Sent KB/sec : Mengindikasikan jumlah data yang berhasil dikirim dari server selama dilakukannya eksekusi pengujian performance dalam satuan kilobyte tiap 1 sekon.
       Avg Bytes : Merupakan rata-rata byte yang berhasil diunduh (download) oleh server.
 24. Analisis
-<<<<<<< HEAD
     - 50 user
-      - tanpa load balacer
+      - Tanpa load balacer :
         Dalam waktu 0.2 (ramp-up) membutuhkan waktu rata eksekusi 1333 ms (landing), 5549 ms (blog), 580 ms (app) dengan waktu minimum yang dibutuhkan untuk mengeksekusi thread 839 ms(landing), 34586 ms (blog), 3 ms (app) dan maksimumnya 1773 ms (landing), 60185 ms (blog), 5506 ms (app) dari througput server dapat mengeksekusi 28,2 thread/s (landing), 49.2 thread/min (blog), 1,9 thread/s
-=======
-    1. 50 user
-    - tanpa load balacer
-     Dalam waktu 0.2 (ramp-up) membutuhkan waktu rata eksekusi 1333 ms (landing), 5549 ms (blog), 580 ms (app) dengan waktu minimum yang dibutuhkan untuk     mengeksekusi thread 839 ms(landing), 34586 ms (blog), 3 ms (app) dan maksimumnya 1773 ms (landing), 60185 ms (blog), 5506 ms (app) dari througput server dapat mengeksekusi 28,2 thread/s (landing), 49.2 thread/min (blog), 1,9 thread/s
->>>>>>> 8323aa6e767fbbec8faec37607b60b69d3bc2dc3
