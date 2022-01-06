@@ -127,6 +127,7 @@ Hasil Graph Result traffic 50 users Tanpa loadbalancer
 ```markdown
 13. Konfigurasi Load balancer
     sudo nano /etc/nginx/sites-available/vm.local
+    tambahkan upstream blog, upstream app, upstream landing
 ```
 
 ![13](https://user-images.githubusercontent.com/93067781/148241072-426c3f6f-211e-49d1-9488-b573c54804fd.png)
