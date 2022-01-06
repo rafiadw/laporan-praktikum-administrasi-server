@@ -201,7 +201,12 @@ Menggunakan loadbalancer dapat mengoptimalkan pemanfaatan sumber daya, memaksima
 24. Analisis
     - 50 user
       - Tanpa load balacer :
-        Dalam waktu 0.2 (ramp-up) membutuhkan waktu rata eksekusi 1338ms (landing), 55449 ms (blog), 580 ms (app) dengan waktu minimum yang dibutuhkan untuk mengeksekusi thread 839 ms(landing), 34586 ms (blog), 3 ms (app) dan maksimumnya 1773 ms (landing), 60185 ms (blog), 5506 ms (app) dari througput server dapat mengeksekusi 28,2 thread/s (landing), 49.2 thread/min (blog), 1,9 thread/s (app).
-    - 50 user
+        Dalam waktu 0.2 (ramp-up) membutuhkan waktu rata eksekusi 1338ms (landing), 55449 ms (blog), 580 ms (app) dengan waktu minimum yang dibutuhkan untuk mengeksekusi thread 839 ms(landing), 34586 ms (blog), 3 ms (app) dan maksimumnya 1773 ms (landing), 60185 ms (blog), 5506 ms (app) dari througput server dapat mengeksekusi 28.2 thread/s (landing), 49.2 thread/min (blog), 1.9 thread/s (app).
       - Dengan load balacer :
         Dalam waktu 0.2 (ramp-up) membutuhkan waktu rata eksekusi 713ms (landing), 45711 ms (blog), 77 ms (app) dengan waktu minimum yang dibutuhkan untuk mengeksekusi thread 251 ms(landing), 10472 ms (blog), 3 ms (app) dan maksimumnya 1096 ms (landing), 60011 ms (blog), 1096 ms (app) dari througput server dapat mengeksekusi 45.5 thread/s (landing), 49.3 thread/min (blog), 59.5 thread/min (app).
+        
+    - 100 user
+      - Tanpa load balacer :
+        Dalam waktu 0.2 (ramp-up) membutuhkan waktu rata eksekusi 991ms (landing), 59298 ms (blog), 10 ms (app) dengan waktu minimum yang dibutuhkan untuk mengeksekusi thread 350 ms(landing), 45771 ms (blog), 3 ms (app) dan maksimumnya 1567 ms (landing), 60012 ms (blog), 37 ms (app) dari througput server dapat mengeksekusi 50.7 thread/s (landing), 1.6 thread/min (blog), 6.3 thread/s (app).
+      - Tanpa load balacer :
+        Dalam waktu 0.2 (ramp-up) membutuhkan waktu rata eksekusi 2414ms (landing), 52785 ms (blog), 10 ms (app) dengan waktu minimum yang dibutuhkan untuk mengeksekusi thread 1837 ms(landing), 10984 ms (blog), 3 ms (app) dan maksimumnya 2925 ms (landing), 60004 ms (blog), 92 ms (app) dari througput server dapat mengeksekusi 29.4 thread/s (landing), 1.6 thread/min (blog), 2 thread/s (app).
