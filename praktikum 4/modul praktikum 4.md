@@ -209,5 +209,5 @@ Menggunakan loadbalancer dapat mengoptimalkan pemanfaatan sumber daya, memaksima
     - 100 user
       - Tanpa load balacer :
         Dalam waktu 0.2 (ramp-up) membutuhkan waktu rata eksekusi 991ms (landing), 59298 ms (blog), 10 ms (app) dengan waktu minimum yang dibutuhkan untuk mengeksekusi thread 350 ms(landing), 45771 ms (blog), 3 ms (app) dan maksimumnya 1567 ms (landing), 60012 ms (blog), 37 ms (app) dari througput server dapat mengeksekusi 50.7 thread/s (landing), 1.6 thread/min (blog), 6.3 thread/s (app).
-      - Tanpa load balacer :
+      - Dengan load balacer :
         Dalam waktu 0.2 (ramp-up) membutuhkan waktu rata eksekusi 2414ms (landing), 52785 ms (blog), 10 ms (app) dengan waktu minimum yang dibutuhkan untuk mengeksekusi thread 1837 ms(landing), 10984 ms (blog), 3 ms (app) dan maksimumnya 2925 ms (landing), 60004 ms (blog), 92 ms (app) dari througput server dapat mengeksekusi 29.4 thread/s (landing), 1.6 thread/min (blog), 2 thread/s (app).
